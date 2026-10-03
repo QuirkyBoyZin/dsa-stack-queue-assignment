@@ -8,7 +8,7 @@ public class Main {
         Stack<String> stack = new Stack<>(2);
 
         String s1 = "abcdefg";        // -> gfedcba
-        String s2 =  " abcdefg ";    // trim trailing and leading spaces -> gfedcba
+        String s2 =  " abcdefg ";    // trim trailing and leading spaces -> " gfedcba "
         String s3 = "123456";       // -> 654321
         String s4 = "654321";      // -> 123456
         String s5 = " ";          //-> throw IllegalArgumentException
