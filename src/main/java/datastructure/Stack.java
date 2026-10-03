@@ -1,6 +1,4 @@
 package datastructure;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class Stack <T>{
@@ -13,6 +11,7 @@ public class Stack <T>{
         if (arraySize <= 0) {
             throw new IllegalArgumentException("arraySize must not be less than or equal to 0! ");
         }
+
         this.arraySize = arraySize;
     }
 
@@ -20,7 +19,7 @@ public class Stack <T>{
     public void push(T newItem) {
         if (elements == null) {
             this.type = newItem.getClass();
-            elements = (T[])Array.newInstance(type,arraySize);
+            this.elements  = (T[]) new Object[arraySize];
         }
         top++;
         if (top == arraySize - 1 ) {
@@ -52,7 +51,7 @@ public class Stack <T>{
 
     @SuppressWarnings("unchecked")
     private void resizeArray() {
-        T[] newArray = (T[])Array.newInstance(type,arraySize + 1);
+        T[] newArray = (T[]) new Object[arraySize + 1];
 
         for (int i = 0; i < arraySize; i++) {
             newArray[i] = elements[i];
