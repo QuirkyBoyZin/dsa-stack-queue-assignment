@@ -1,3 +1,5 @@
+package datastructure;
+
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
@@ -71,7 +73,7 @@ public class Stack <T>{
 
     @Override
     public String toString() {
-        return "Stack{" +
+        return "datastructure.Stack{" +
                 "top=" + top +
                 ", elements=" + Arrays.toString(elements) +
                 ", type=" + type +

@@ -1,3 +1,5 @@
+package datastructure;
+
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
@@ -59,7 +61,7 @@ public class Queue <T> {
 
     @Override
     public String toString() {
-        return "Queue{" +
+        return "datastructure.Queue{" +
                 "type=" + type +
                 ", elements=" + Arrays.toString(elements) +
                 ", arraySize=" + arraySize +
@@ -74,7 +76,7 @@ public class Queue <T> {
             System.out.print(" <- | " + elements[i] + " | ");
 
         }
-        System.out.print(" <--- Queue Here ");
+        System.out.print(" <--- datastructure.Queue Here ");
 
 
     }
