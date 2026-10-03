@@ -1,5 +1,6 @@
 import datastructure.Queue;
 import datastructure.Stack;
+import utils.DelimiterChecker;
 import utils.StringReverser;
 
 public class Main {
@@ -7,19 +8,26 @@ public class Main {
         Queue<Integer> queue = new Queue<>(1);
         Stack<String> stack = new Stack<>(2);
 
-        String s1 = "abcdefg";        // -> gfedcba
-        String s2 =  " abcdefg ";    // trim trailing and leading spaces -> " gfedcba "
-        String s3 = "123456";       // -> 654321
-        String s4 = "654321";      // -> 123456
-        String s5 = " ";          //-> throw IllegalArgumentException
-        String s6 = "" ;         //  -> throw IllegalArgumentException
-        String s7 = "c";        //  -> throw IllegalArgumentException
 
-        String[] s = {s1,s2,s3,s4,s5,s6,s7};
+        String s1 = "a{[[bc](de)(fg)]}";                // -> true
+        String s2 =  " a{{}}(bcdefg) ";            // -> true
+        String s3 = "{[{]}";                        // -> false
+        String s4 = "[][]{}{}}";                 // -> false
+        String s5 = "][";                       //-> false
+        String s6 = "({a}{a}[a]{b})" ;         // -> true
+        String s7 = "[(){}][";                //  -> false
+        String s8 = "(])";                   // -> false
+        String s9 = "(]";                     // -> false
+        String s10 = "{]";                  // -> false
+
+
+        String[] s = {s1,s2,s3,s4,s5,s6,s7,s8,s9,s10};
 
         try {
+            int i = 1;
             for (String word : s) {
-                System.out.println(StringReverser.reverse(word));
+                System.out.println("s" + i + ": " + word + " -> " + DelimiterChecker.check(word));
+                i++;
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
