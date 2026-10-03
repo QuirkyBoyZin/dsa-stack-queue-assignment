@@ -40,7 +40,7 @@ public class Stack <T>{
     }
 
     public T pop() {
-        if (elements == null) {
+        if (elements == null || top == -1) {
             return null;
         }
         T value = elements[top];
