@@ -30,9 +30,13 @@ abstract public class CustomArray<T> {
 
     @Override
     public String toString() {
-        return Arrays.toString(arr);
+        return "CustomArray{" +
+                "arr=" + Arrays.toString(arr) +
+                ", size=" + size +
+                ", count=" + count +
+                ", pointer=" + pointer +
+                '}';
     }
-
 
     /**
      * <p>Given a size, this constructor will create an Array of type {@code Integer } with {@code Null}
@@ -101,7 +105,6 @@ abstract public class CustomArray<T> {
             countNonNullElement();
         }
 
-        pointer = newSize - 1;
         arr  = Arrays.copyOfRange(arr, 0, newSize);
         size = newSize;
 
@@ -115,5 +118,6 @@ abstract public class CustomArray<T> {
         }
 
     }
+
 
 }

@@ -2,9 +2,10 @@ package datastructure.arrays;
 
 /**
  * This class extends {@link CustomArray}.
+ * @param <T>
  * @implNote The array in this class will not be sorted
  */
-public class UnorderedArray extends CustomArray {
+public class UnorderedArray<T> extends CustomArray<T> {
     /**
      * <p>Given a size, this constructor will create an Array of type {@code Integer } with {@code Null}
      * values according to the given size. </p>
@@ -36,22 +37,19 @@ public class UnorderedArray extends CustomArray {
      * </ul>
      */
     @Override
-    public boolean delete(int e) {
+    public boolean delete(T e) {
         int index = find(e);
         boolean isFound = index != -1; // False when find(e) returns -1 (exist), false if it returns something else
-        System.out.println(isFound);
 
         if (isFound) {
             // Shift all elements after the found index to the left by 1
-            for (int i = index; i < pointer - 1; i++) {
-                arr[i] = arr[i + 1];
-            }
+            for (int i = index; i < pointer - 1; i++) { arr[i] = arr[i + 1];}
 
             // Null out the last element since it was shifted left
             arr[pointer - 1] = null;
 
-            pointer--;
-            count--; // Decrease element count tracking
+            pointer--;   // Move the pointer backward by 1
+            count--;    // Decrease element count tracking
         }
 
         return false;
@@ -66,23 +64,23 @@ public class UnorderedArray extends CustomArray {
      * @implNote {@code O(1)} Time Complexity in all cases.
      */
     @Override
-    public void insert(int e) {
+    public void insert(T e) {
         boolean isArrayFull = pointer == size;
 
         if (isArrayFull) {
-            resize(size() + 1);
+            resize(size * 2);
             arr[pointer] = e;
 
         } else {
             arr[pointer] = e;
         }
-        count ++;
+        count++;
         pointer++;
 
     }
 
     /**
-     * Searches through the array to find the given element {@code e}.
+     * Searches through the array to find {@code e}.
      *
      * @param e the element to be found or not found
      * @return {@code Index} of the corresponding inputted element <br>
@@ -97,12 +95,17 @@ public class UnorderedArray extends CustomArray {
      * </ul>
      */
     @Override
-    public int find(int e) {
+    public int find(T e) {
+        if (e == null) {
+            return -1;
+        }
+
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] != null && arr[i] == e) {
+            if (e.equals(arr[i])) {
                 return i;
             }
         }
+        // Not found
         return -1;
     }
 
