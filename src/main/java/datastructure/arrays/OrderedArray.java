@@ -1,6 +1,8 @@
 package datastructure.arrays;
 
-public class OrderedArray extends CustomArray
+import java.util.Objects;
+
+public class OrderedArray<T extends Comparable<T> > extends CustomArray<T>
 {
 
     /**
@@ -11,8 +13,11 @@ public class OrderedArray extends CustomArray
      *
      * @param size the total capacity of the array.
      */
+    @SuppressWarnings("unchecked")
     public OrderedArray(int size) {
         super(size);
+        this.arr = (T[]) new Comparable[size];
+
     }
 
 
@@ -35,7 +40,7 @@ public class OrderedArray extends CustomArray
      * </ul>
      */
     @Override
-    public boolean delete(int e) {
+    public boolean delete(T e) {
 
         int index = find(e);
         boolean isFound = index != -1; // False when find(e) returns -1 (exist), false if it returns something else
@@ -66,17 +71,24 @@ public class OrderedArray extends CustomArray
      * @implNote {@code O(n)} Time Complexity in all cases.
      */
     @Override
-    public void insert(int e) {
+    public void insert(T e) {
         boolean isArrayFull = pointer == size;
 
         if (isArrayFull) {
-            resize(size + 1);
+            resize(size * 2);
         }
 
         // Find the correct position for 'e' to keep the array ordered
         // by shifting larger elements one position to the right
         int currentIndex = pointer - 1;
-        while (currentIndex >= 0 && arr[currentIndex] != null && arr[currentIndex] > e) {
+        if (currentIndex == -1) {
+            arr[pointer] = e;
+            pointer++;
+            count++;
+            return;
+        }
+
+        while (currentIndex >= 0 && arr[currentIndex] != null && e.compareTo(arr[currentIndex]) < 0) {
             arr[currentIndex + 1] = arr[currentIndex];
             currentIndex--;
         }
@@ -105,20 +117,23 @@ public class OrderedArray extends CustomArray
      * </ul>
      */
     @Override
-    public int find(int e) {
+    public int find(T e) {
 
-        int low = 0, high = arr.length - 1;
+        if (e == null) {
+            return -1;
+        }
+
+        int low = 0, high = pointer - 1;
 
         while (low <= high) {
             int mid = ( low + high)  / 2;
 
-            if (e == arr[mid]) {
+            if (e.equals(arr[mid])) {
                 return mid;
+            }
 
-            } else if (e > arr[mid]) {
-                low = mid + 1;
-
-            } else if (e < arr[mid]) {
+            else if (e.compareTo(arr[mid]) > 0) { low = mid + 1; }
+            else  {
                 high = mid - 1;
             }
 
@@ -126,4 +141,5 @@ public class OrderedArray extends CustomArray
             return -1;
 
     }
+
 }
